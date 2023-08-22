@@ -1,0 +1,148 @@
+.position{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-wrapp{
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+mat-card{
+    margin-right: 15px;
+    background-color: rgb(222, 224, 226); 
+}
+
+.income{
+    border-left:solid green;
+}
+
+.expense{
+    border-left:solid red; 
+}
+
+.balance{
+    border-left:solid blue;
+}
+
+.tbl1{
+    margin-right: 20px;
+    border: solid 1px rgb(41, 245, 41);
+}
+
+.tbl2{
+    margin-right: 20px;
+    border: solid 1px rgb(247, 76, 76);
+}
+
+
+table {
+    border: solid 1px ;  
+    width:200px;
+}   
+  
+.mat-column-date {
+    width:40px;
+    border: 1px solid currentColor;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+  
+.mat-column-category {
+    width:40px;
+    border: 1px solid currentColor;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+  
+.mat-column-sub_category {
+    width:60px;
+    border: 1px solid currentColor;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+  
+.mat-column-amount {
+    width:60px;
+    border: 1px solid currentColor;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.piechart-container {
+    margin-right: 100px;
+}
+
+.barchart-container{
+    margin-right: 100px;
+}
+
+mat-form-field{ 
+    width: 280px;
+}
+
+.switch {
+    position:absolute;
+    width: 40px;
+    height: 20px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 20px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+
+  

@@ -1,0 +1,221 @@
+<div class="position">
+    <div class="container align bootstrap" >
+        <h1>Dashboard</h1>
+        <hr>
+        <div class="card-wrapp">
+            <mat-card class="income">
+                <mat-card-header>
+                    <mat-card-title>Total Income(Monthly)</mat-card-title>
+                </mat-card-header>
+                    <mat-card-content>$ {{totIncome}}</mat-card-content>
+            </mat-card>
+            <mat-card class="expense">
+                <mat-card-header>
+                <mat-card-title>Total Expense(Monthly)</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>$ {{totExpense}}</mat-card-content>
+            </mat-card>
+            <mat-card class="balance">
+                <mat-card-header>
+                <mat-card-title>Balance(Monthly)</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>$ {{totIncome-totExpense}}</mat-card-content>
+            </mat-card>
+        </div>
+        <br><br>
+
+        <h2 style="color:green">Income Details</h2>
+
+        <label class="switch">
+            <input id="toggle" type="checkbox" (change)="toggleIncomeCheck()">
+            <span class="slider round"></span>
+        </label>
+
+        <br><br>
+
+        <div *ngIf="incomeFilter">
+            <div class="input-container">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date" [(ngModel)]="dashboardService.selectedStartDate">
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="input-container">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" [(ngModel)]="dashboardService.selectedEndDate">
+                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="input-container">
+                <mat-form-field>
+                    <mat-label>Category</mat-label>
+                    <mat-select [(value)]="dashboardService.selectedCategory">
+                        <mat-option value="">All</mat-option>
+                        <mat-option *ngFor="let category of categoryIncome" [value]="category">{{ category }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>   
+            <div class="input-container">
+                <mat-form-field  >
+                    <mat-label>Sub-Category</mat-label>
+                    <mat-select [(value)]="dashboardService.selectedSubCategory">
+                        <mat-option value="">All</mat-option>
+                        <mat-option *ngFor="let subCategory of subcategoryIncome" [value]="subCategory">{{ subCategory }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <button mat-raised-button style="margin-left:10px;" color="primary" (click)="applyIncomeFilters()">Apply Filters</button>
+            <button mat-raised-button style="margin-left:10px;" color="primary" (click)="clearIncomeValues()">Clear</button>
+        </div>
+        
+        <br>
+        
+        <div class="tbl1">
+            <table id="itbl" mat-table [dataSource]="dataSourceIncome" class="mat-elevation-z8" matSort>
+            
+                
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                </ng-container>
+            
+                
+                <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+                    <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                </ng-container>
+            
+                
+                <ng-container matColumnDef="sub_category">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category </th>
+                    <td mat-cell *matCellDef="let element"> {{element.sub_category}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount($) </th>
+                    <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsIncome;"></tr>
+                <tr mat-row *matRowDef="let row; columns:displayedColumnsIncome;"></tr>
+
+            </table>
+
+            <div *ngIf="!dashboardService.dataAddedIncome">
+                <br>
+                <p style="text-align: center;" >Add New Data</p>
+            </div>
+        </div>
+
+        <br><br>
+
+        <h2 style="color:red">Expense Details</h2>
+
+        <label class="switch">
+            <input id="toggle" type="checkbox" (change)="toggleExpenseCheck()">
+            <span class="slider round"></span>
+        </label>
+
+        <br><br>
+
+        <div *ngIf="expenseFilter">
+            <div class="input-container">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date" [(ngModel)]="dashboardService.selectedStartDateExpense">
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="input-container">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" [(ngModel)]="dashboardService.selectedEndDateExpense">
+                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="input-container">
+                <mat-form-field>
+                    <mat-label>Category</mat-label>
+                    <mat-select [(value)]="dashboardService.selectedExpenseCategory">
+                        <mat-option value="">All</mat-option>
+                        <mat-option *ngFor="let category of categoryExpense" [value]="category">{{ category }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>   
+            <div class="input-container">
+                <mat-form-field  >
+                    <mat-label>Sub-Category</mat-label>
+                    <mat-select [(value)]="dashboardService.selectedExpenseSubCategory">
+                        <mat-option value="">All</mat-option>
+                        <mat-option *ngFor="let subCategory of subcategoryExpense" [value]="subCategory">{{ subCategory }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <button mat-raised-button style="margin-left:10px;" color="primary"  (click)="applyExpenseFilters()">Apply Filters</button>
+            <button mat-raised-button style="margin-left:10px;" color="primary" (click)="clearExpenseValues()">Clear</button>
+        </div>
+        
+        <br>
+
+        <div class="tbl2">
+            <table id="etbl" mat-table [dataSource]="dataSourceExpense" class="mat-elevation-z8">
+            
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef > Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef > Category </th>
+                    <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="sub_category">
+                    <th mat-header-cell *matHeaderCellDef > Sub Category </th>
+                    <td mat-cell *matCellDef="let element"> {{element.sub_category}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef> Amount($) </th>
+                    <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsExpense;"></tr>
+                <tr mat-row *matRowDef="let row; columns:displayedColumnsExpense"></tr>
+            </table>
+
+            <div *ngIf="!dashboardService.dataAddedExpense">
+                <br>
+                <p style="text-align: center;" >Add New Data</p>
+            </div>
+        </div>   
+
+    </div> 
+    
+</div>
+
+
+<br><br><br><br>
+    
+<div class="piechart-container">
+    <canvas  id="MyPieChart" >{{ pChart }}</canvas>
+    <h3 style="text-align: center;color: red;" *ngIf = "chartVisible">Pie-Chart for Expenses</h3>
+</div>
+
+<p style="text-align: center;" *ngIf = "!chartVisible">Add values for Amount column in Expense table to see charts</p>
+
+<br><br><br><br>
+
+
+<div class="barchart-container">
+    <canvas  id="MyBarChart" >{{ bChart }}</canvas>
+    <h3 style="text-align: center;color:red" *ngIf = "chartVisible">Bar-Chart for Expenses</h3>
+</div>
+
+
+
+      
+      
+ 

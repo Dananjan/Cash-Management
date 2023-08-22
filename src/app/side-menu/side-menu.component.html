@@ -1,0 +1,58 @@
+<mat-toolbar class="mat-elevation-z8">
+    <button mat-icon-button (click)="sidenav.toggle()" >
+        <mat-icon *ngIf="!sidenav.opened">
+            menu
+        </mat-icon>
+        <mat-icon *ngIf="sidenav.opened">
+            menu
+        </mat-icon>
+    </button> 
+    
+    <span class="username"><img [src]="regService.userData.photoURL? regService.userData.photoURL : '../../assets/images.png'" alt="user"> {{regService.userData.displayName}} </span>
+</mat-toolbar>
+
+<mat-sidenav-container >
+
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8" opened="false" mode="side" >
+            <br>
+            <button mat-button class="menu-button" routerLink="/dashboard" >
+                <mat-icon class="iconsize">dashboard</mat-icon>
+                <span style="font-size: 20px;color: white;">Dashboard</span>
+            </button>
+            <br><br>
+            <button mat-button class="menu-button" routerLink="/income" >
+                <mat-icon class="icon-size">trending_up</mat-icon>
+                <span style="font-size: 20px;color: white">Income</span>
+            </button>
+            <br><br>
+            <button mat-button class="menu-button" routerLink="/expenses" >
+                <mat-icon class="icon-size">trending_down</mat-icon>
+                <span style="font-size: 20px;color: white">Expense</span>
+            </button>
+            <br><br>
+            <button mat-button class="menu-button" routerLink="/profile-update" >
+                <mat-icon class="iconsize">create</mat-icon>
+                <span style="font-size: 20px;color: white">Update Profile</span>
+            </button>
+            <br><br>
+            <button mat-button class="menu-button" routerLink="/password-reset" >
+                <mat-icon class="iconsize">build</mat-icon>
+                <span style="font-size: 20px;color: white">Password Reset</span>
+            </button>
+            <br><br>
+            <mat-divider></mat-divider>
+            <br>
+            <button mat-button class="menu-button" (click)="regService.SignOut()" >
+                <mat-icon class="iconsize">logout</mat-icon>
+                <span style="font-size: 20px;color: white">Log out</span>
+            </button>
+    </mat-sidenav>
+
+    
+    <mat-sidenav-content >
+        <div class="content mat-elevation-z8">
+            <router-outlet ></router-outlet>
+        </div>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

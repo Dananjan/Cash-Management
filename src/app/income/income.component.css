@@ -1,0 +1,88 @@
+
+.position{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.align{
+    position: relative;  
+}
+
+.tbl1{
+    margin-right: 20px;
+    border: solid 1px rgb(5, 175, 5);
+}
+
+
+table {
+    border: solid 1px rgb(5, 175, 5);
+}   
+  
+.mat-column-date {
+    width:60px;
+    border: 1px solid currentColor;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+  
+.mat-column-category {
+    width:60px;
+    border: 1px solid currentColor;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+  
+.mat-column-sub_category {
+    width:180px;
+    border: 1px solid currentColor;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+  
+.mat-column-amount {
+    width:60px;
+    border: 1px solid currentColor;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+button{
+    margin-right: 5px;
+}
+
+label{
+    font-size: 16px;
+    margin-right: 10px;
+    float: left;
+    margin-left: 40px;
+}
+
+input{
+    font-size: 14px;
+    width: 140px;
+    height: 24px;
+}
+
+.form-popup{
+    position:fixed;
+    margin-left: 350px;
+    bottom: 50px;
+    background-color: rgb(196, 197, 197); 
+    padding: 20px;
+    border-radius: 10px;
+}
+
+small{
+    font-size: 10px; 
+    color: red;
+    
+}
+
+
+
+  

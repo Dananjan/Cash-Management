@@ -1,0 +1,123 @@
+<div class="position">
+    <div class="container align bootstrap" >
+        <h1>Income Details</h1>
+        <hr>
+        
+        <div class="row">
+
+            <button mat-mini-fab color="primary" type="button" id="add" class="btn btn-primary" (click)="openAddForm()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <button mat-mini-fab color="primary"type="button" id="edit" class="btn btn-primary" (click)="edit()">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-mini-fab color="primary" type="button" id="del" class="btn btn-primary" (click)="delete()">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <br><br>
+
+            <div class="form-popup" id="myForm" [style.display]= display>
+                <form #ad="ngForm"  (ngSubmit)="incomeService.addData(ad)">
+                    <button type="button" style="background-color: transparent; margin-left: 260px;margin-bottom:10px; border: none;" (click)="closeForm()"><mat-icon style="color: red;">clear</mat-icon></button>
+                    <p style="text-align: center;color: black;">Add New Income Details</p>
+                    <hr>
+                    <div class="form-group">
+                        <label for="date" class="lbl">Date: </label>
+                        <input type="date" id="date" class="form-control input" ngModel name="date" #dateAdd="ngModel" required>
+                        <small *ngIf = "dateAdd.touched && !dateAdd.valid">This is a required field</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="category" class="lbl">Category:  </label>
+                        <input type="text" id="category" class="form-control input" ngModel name="category" name="category" #categoryAdd="ngModel" required>
+                        <small *ngIf = "categoryAdd.touched && !categoryAdd.valid">This is a required field</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="subCategory" class="lbl">Sub Cate: </label>
+                        <input type="text" id="subCategory" class="form-control input" ngModel name="sub_category" #subCategoryAdd="ngModel" required>
+                        <small *ngIf = "subCategoryAdd.touched && !subCategoryAdd.valid">This is a required field</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount" class="lbl">Amount:  </label>    
+                        <input type="text" id="amount" class="form-control input" ngModel name="amount" #amountAdd="ngModel" required>
+                        <small *ngIf = "amountAdd.touched && !amountAdd.valid">This is a required field</small>
+                    </div>
+                    <button type="submit" id="submit" style="height:30px; margin-left: 180px; margin-bottom: 20px;" [disabled]="!ad.valid" class="btn btn-primary">Add</button>
+                    <button type="reset" id="reset" class="btn btn-primary" style="height:30px; margin-bottom: 20px;">Reset</button>
+                </form>
+            </div>
+
+            <div class="form-popup" id="myEditForm" [style.display]= displayEdit>
+                <form #ed="ngForm" (ngSubmit)="incomeService.updateData(ed)">
+                    <button type="button" style="background-color: transparent; margin-left: 260px;margin-bottom:10px; border: none;" (click)="closeForm()"><mat-icon style="color: red;">clear</mat-icon></button>
+                    <p style="text-align: center;color: black;">Edit Income Details</p>
+                    <hr>
+                    <div class="form-group">
+                        <label for="date" class="lbl">Date: </label>
+                        <input type="date" id="date" class="form-control input" ngModel name="date" #dateEdit="ngModel" required>
+                        <small *ngIf = "dateEdit.touched && !dateEdit.valid">This is a required field</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="category" class="lbl">Category:  </label>
+                        <input type="text" id="category" class="form-control input" ngModel name="category" #categoryEdit="ngModel" required>
+                        <small *ngIf = "categoryEdit.touched && !categoryEdit.valid">This is a required field</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="subCategory" class="lbl">Sub Cate: </label>
+                        <input type="text" id="subCategory" class="form-control input" ngModel name="sub_category" #subCategoryEdit="ngModel" required>
+                        <small *ngIf = "subCategoryEdit.touched && !subCategoryEdit.valid">This is a required field</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount" class="lbl">Amount:  </label>    
+                        <input type="text" id="amount" class="form-control input" ngModel name="amount" #amountEdit="ngModel" required>
+                        <small *ngIf = "amountEdit.touched && !amountEdit.valid">This is a required field</small>
+                    </div>
+                    <button type="submit" id="submit" style="height:30px; margin-left: 180px; margin-bottom: 20px;" [disabled]="!ed.valid" class="btn btn-primary">Save</button>
+                    <button type="reset" id="reset" class="btn btn-primary" style="height:30px; margin-bottom: 20px;">Reset</button>
+                </form>
+            </div>
+
+            <div class="tbl1"> 
+                    <table mat-table [dataSource]="incomeService.incomeData" class="mat-elevation-z8 ">
+                    
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef style="font-weight: bold;"> Date </th>
+                            <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                        </ng-container>
+                    
+                        <ng-container matColumnDef="category">
+                            <th mat-header-cell *matHeaderCellDef style="font-weight: bold;"> Category </th>
+                            <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                        </ng-container>
+                    
+                        <ng-container matColumnDef="sub_category">
+                            <th mat-header-cell *matHeaderCellDef style="font-weight: bold;"> Sub Category </th>
+                            <td mat-cell *matCellDef="let element"> {{element.sub_category}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="amount">
+                            <th mat-header-cell *matHeaderCellDef style="font-weight: bold;"> Amount </th>
+                            <td mat-cell *matCellDef="let element"> {{element.amount}} 
+                                <button type="button" id="edit" style="background-color: transparent;border-color: transparent;" (click)="editData(element.docId)" *ngIf="ediData==true">
+                                    <mat-icon style="font-size: 20px; color: rgb(4, 3, 53);padding-top: 6px;">edit</mat-icon>
+                                </button>
+                                <button type="button" id="edit" style="background-color: transparent;border-color: transparent;" (click)="incomeService.deleteData(element.docId)" *ngIf="delData==true">
+                                    <mat-icon style="font-size: 20px; color: rgb(151, 35, 7);padding-top: 6px;">delete</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+                        
+                        
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        
+                    </table>
+                    <div *ngIf="!incomeService.dataAdded">
+                        <br>
+                        <p style="text-align: center;" >Add New Data</p>
+                    </div>
+            </div>
+                        
+        </div>
+    </div>
+    
+</div>

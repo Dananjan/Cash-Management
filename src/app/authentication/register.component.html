@@ -1,0 +1,103 @@
+<html>
+    <body>
+        <div class="login-wrap">
+           
+            <div class="login-html">
+                
+                <div style="color:rgb(172, 240, 208);font-size: 30px;">
+                    Welcome to our website!
+                </div>
+                <div class="hr"></div>
+                
+                <input id="tab-1" type="radio" name="tab" class="sign-in" checked/><label for="tab-1" class="tab">LOGIN</label>
+                <input id="tab-2" type="radio" name="tab" class="sign-up"/><label for="tab-2" class="tab">REGISTER</label>
+                <div class="login-form">
+
+                    <div class="spinner" *ngIf="regService.isLoading">                   
+                        <app-loading-spinner></app-loading-spinner> 
+                    </div>
+
+                    <div class="sign-in-htm">
+                        <form #authForm="ngForm"  *ngIf="!regService.isLoading">
+                            <div class="form-group">
+                              <label for="email" class="label"> E-Mail </label>
+                              <input type="email" id="email" class="form-control input" ngModel name="email" #useremail required email/>
+                            </div>
+                            <br>
+                            <div class="form-group inner-addon right-addon">
+                                <label for="password" class="label"> Password </label>
+                                <div class="input-group col-xs-12 mx-auto">
+                                    <input [type]="showPwd ? 'text' : 'password'"  id="password" class="form-control pwd-control input" ngModel name="password"  #userpassword required minlength="8"/>
+                                    <div>
+                                        <i alt="show" class="far fa-eye eye-show" 
+                                        (click)="showPwd = !showPwd"
+                                        [class.hide]="showPwd"></i>
+                                        <i alt="hide" class="far fa-eye-slash eye-hide" 
+                                        (click)="showPwd = !showPwd"
+                                        [class.hide]="!showPwd"></i>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <br><br>
+            
+                            <div class="form-group">
+                                <input id="rememberMe" type="checkbox" [(ngModel)]="regService.rememberMe" name="rememberMe" class="form-check-input" >
+                                <label for="rememberMe" class="form-check-label" style="margin-left:5px; color:rgb(26, 25, 25); font-size:14px;"> Remember Me </label>
+                            </div>
+                    
+                            <div>
+                              <button class="button" type="submit" [disabled]="!authForm.valid" (click)="regService.SignIn(useremail.value, userpassword.value)">
+                                Login
+                              </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="sign-up-htm">
+                        <form  #regForm="ngForm" *ngIf="!regService.isLoading">
+                            <div class="form-group">
+                                <label for="fname" class="label" > First Name * <small *ngIf = "fname.touched && !fname.valid"> : Required</small> </label>
+                                <input  type="text" id="fname" class="form-control input" ngModel name="fname" #fname="ngModel"  required>
+                                
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lname" class="label"> Last Name </label> 
+                                <input type="text" id="lname" class="form-control input" ngModel name="lname" #lname="ngModel"/>                          
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="label"> E-Mail * <small *ngIf = "email.touched && !email.valid"> : Required </small> </label>
+                                <input type="email" id="email" placeholder="txt@txt.com" class="form-control input" ngModel name="email" #email="ngModel" required email/>
+                            </div>
+                            
+                            
+                            <div class="form-group">
+                                <label for="password" class="label"> Password * </label>
+                                <input type="password" id="password" placeholder="Minimum 8 charcters"class="form-control input" ngModel name="password" #password="ngModel" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$"/>
+                                <small *ngIf = "password.touched && !password.valid">At least one of each:(A-Z,a-z,0-9,#?!@$%^&*-) required</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cpassword" class="label"> Confirm Password * </label>
+                                <input type="password" id="cpassword" class="form-control input" ngModel name="cpassword" #cpassword="ngModel" required
+                                pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$" />
+                                <div><small *ngIf = "cpassword.touched && (!cpassword.valid || (password.value!=cpassword.value))">
+                                    This should be same as above password field
+                                </small></div>
+                            </div>
+                            <br>
+                            <div>
+                                <button class="button" type="submit" [disabled]="!regForm.valid || !(password.value==cpassword.value)" 
+                                (click)="regService.SignUp(email.value, password.value,fname.value,lname.value,$event)"> Register </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </body>
+</html>

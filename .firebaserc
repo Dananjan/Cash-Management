@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "assignment-project-a6c1b": {
+      "hosting": {
+        "Assignment_Project": [
+          "assignment-project-a6c1b"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "assignment-project-a6c1b"
+  }
+}

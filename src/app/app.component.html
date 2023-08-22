@@ -1,0 +1,14 @@
+<div *ngIf="!regService.isLoggedIn">
+
+    <router-outlet></router-outlet>
+    
+</div>
+
+
+<div *ngIf="regService.isLoggedIn">
+
+    <app-side-menu></app-side-menu>
+
+</div>
+
+

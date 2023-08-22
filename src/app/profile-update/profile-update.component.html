@@ -1,0 +1,62 @@
+<div class="position">
+  <div class="container align bootstrap" >
+      <h1>Update Profile</h1>
+        <hr>
+    <div class="row">
+        
+        <div class="spinner" style="text-align: center;" *ngIf="UserImageUpdate">                   
+          <app-loading-spinner></app-loading-spinner> 
+        </div>
+
+  
+        <div class="col-md-3">
+          <div class="text-center">
+            <img [src]="regService.userData.photoURL ? regService.userData.photoURL : '../../assets/images.png'" alt="Profile Image" class="avatar img-circle img-thumbnail">
+            <h6>Upload a different photo...</h6>
+            <form (ngSubmit)="updateProfileImg()">
+              <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*">
+              <br>
+              <button type="submit" class="btn btn-primary">Update Image</button>
+            </form>
+          </div>
+        </div>
+         
+        <div class="col-md-7 personal-info">
+          <h3 style="font-size: large;">Update User Details</h3>
+          <br>
+          <form #authForm="ngForm"  class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="fname" class="col-lg-3 control-label">First name:</label>
+              <div class="col-lg-8">
+                <input class="form-control" type="text" id="fname" ngModel name="fname" #fname="ngModel" required>
+                <small *ngIf = "fname.touched && !fname.valid">First Name is required</small>
+              </div> 
+            </div>
+            <div class="form-group">
+              <label for="lname" class="col-lg-3 control-label">Last name:</label>
+              <div class="col-lg-8">
+                <input class="form-control" type="text" id="lname" ngModel name="lname" #lname="ngModel"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Email:</label>
+              <div class="col-lg-8">
+                <label class="form-control" type="text"> {{regService.userData.email}} </label> 
+              </div>
+            </div>
+  
+            <br><br>
+
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="text-right">
+                  <button type="button" id="submit" name="submit" class="btn btn-primary" [disabled]="!authForm.valid" (click)="onSubmit(fname.value,lname.value)">Update Info</button>
+                  <button type="reset" id="reset" name="reset" class="btn btn-primary">Cancel</button>                
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+  </div>
+</div>
